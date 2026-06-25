@@ -8,6 +8,7 @@
 <body>
 <x-dc>
 <helmet>
+<link rel="icon" type="image/svg+xml" href="./assets/portfolio.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -18,10 +19,6 @@
   a.pf-link:hover { text-decoration-color: var(--fg, #27272a); }
   .pf-row a.pf-link { text-decoration-color: transparent; }
   .pf-row:hover a.pf-link { text-decoration-color: var(--mut, #71717a); }
-  .pf-toggle { color: var(--mut, #71717a); transition: color .15s, transform .3s; }
-  .pf-toggle:hover { color: var(--fg, #27272a); }
-  .pf-toggle:hover svg { transform: rotate(45deg); }
-  .pf-toggle svg { transition: transform .3s; }
 </style>
 </helmet>
 
@@ -34,12 +31,6 @@
 
 <div style="--bg:{{ t.bg }}; --fg:{{ t.fg }}; --mut:{{ t.mut }}; --sep:{{ t.sep }}; --acc:{{ t.acc }}; background:var(--bg,#fafafa); color:var(--fg,#27272a); font-family:'Geist Mono','SFMono-Regular',monospace; line-height:1.6; -webkit-font-smoothing:antialiased; min-height:100vh; width:100%;">
   <div style="max-width:640px; margin:0 auto; padding:64px 28px 96px;">
-
-    <div style="display:flex; justify-content:flex-end; margin-bottom:40px;">
-      <button class="pf-toggle" onClick="{{ toggle }}" aria-label="Alternar tema claro/escuro" title="Alternar tema" style="display:flex; align-items:center; justify-content:center; padding:6px; margin:-6px; background:transparent; border:none; cursor:pointer;">
-        <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"></circle><path d="M12 3 A9 9 0 0 1 12 21 Z" fill="currentColor" stroke="none"></path></svg>
-      </button>
-    </div>
 
     <header style="margin-bottom:48px;">
       <h1 style="margin:0; font-size:16px; font-weight:500;">Jansen Alves Raimundo</h1>
@@ -123,7 +114,7 @@
         </div>
         <div style="display:flex; gap:14px; align-items:center;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--mut,#71717a)" style="flex-shrink:0;" aria-hidden="true"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"></path></svg>
-          <a class="pf-link" href="/cdn-cgi/l/email-protection#a0cac1ced3c5ce8ec1ccd6c5d3d2e0c7cdc1c9cc8ec3cfcd"><span class="__cf_email__" data-cfemail="553f343b26303b7b343923302627153238343c397b363a38">[email&#160;protected]</span></a>
+          <a class="pf-link" href="mailto:jansen.alvesr@gmail.com">jansen.alvesr@gmail.com</a>
         </div>
       </div>
     </section>
@@ -136,10 +127,8 @@
   </div>
 </div>
 </x-dc>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:700,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;blue&quot;,&quot;green&quot;,&quot;orange&quot;,&quot;violet&quot;,&quot;neutral&quot;],&quot;default&quot;:&quot;blue&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:700,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;blue&quot;,&quot;green&quot;,&quot;orange&quot;,&quot;violet&quot;,&quot;neutral&quot;],&quot;default&quot;:&quot;blue&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
-  state = { theme: null };
-
   pal(theme) {
     const accents = {
       blue:    ['#2563eb', '#3b82f6'],
@@ -157,17 +146,12 @@ class Component extends DCLogic {
       mut: dark ? '#a1a1aa' : '#71717a',
       sep: dark ? '#27272a' : '#e4e4e7',
       acc: dark ? pair[1] : pair[0],
-      themeLabel: dark ? '\u25CF escuro' : '\u25CB claro',
     };
   }
 
   renderVals() {
-    const theme = this.state.theme ?? this.props.theme ?? 'light';
     return {
-      t: this.pal(theme),
-      toggle: () => this.setState(s => ({
-        theme: (s.theme ?? this.props.theme ?? 'light') === 'dark' ? 'light' : 'dark'
-      })),
+      t: this.pal('light'),
     };
   }
 }
